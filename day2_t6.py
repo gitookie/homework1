@@ -1,9 +1,4 @@
-import math
-def judge(n:int):
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n / i == int(n / i):
-            return False
-    return True
+from day2_t5 import judge
 a = int(input("输入一个正整数："))
 tmp = a
 result = []
