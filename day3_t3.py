@@ -17,10 +17,12 @@ def recur_reverse(text:str):
         return text
     return recur_reverse(text[1:]) + text[:1] #核心，逻辑上就是，当字符串长度大于1时，整个字符串反转的结果，也就是把
     #当前第一个字符放到最后，把从第二个字符到最后一个字符组成的字符串反转以后，拼到第一个字符的前面。这里用到了切片
-num = int(input("输入一个正整数:"))
-print("这是一个" + str(find(num)) + "位数")
-str = str(num)
-print(str[::-1]) #直接用切片
-print(reverse_str(str)) #反向拼接字符
-print(''.join(reversed(str))) #
-print(recur_reverse(str)) #递归方法
+
+if __name__ == '__main__':
+    num = int(input("输入一个正整数:"))
+    print("这是一个" + str(find(num)) + "位数")
+    str = str(num)
+    print(str[::-1]) #直接用切片
+    print(reverse_str(str)) #反向拼接字符
+    print(''.join(reversed(str))) #
+    print(recur_reverse(str)) #递归方法
