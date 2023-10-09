@@ -5,7 +5,7 @@ def replace_py(folder_name):
     #思路跟上一题很像，先改文件内容，再改文件名比较好
     for root, dirs, files in os.walk(folder_name):
         for name in files:
-            with open(os.path.join(dirs, name), 'r') as file:
+            with open(os.path.join(root, name), 'r') as file:
                 content = file.read()
                 content = content.replace('python', 'class')
             with open(os.path.join(root, name), 'w') as file:

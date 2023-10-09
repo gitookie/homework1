@@ -1,9 +1,9 @@
 python
-|
-p
-g
-<
-K
-Q
-]
+%
+*
+G
+;
+=
+R
+j
 python
