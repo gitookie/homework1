@@ -25,6 +25,7 @@ def create_csv():
             writer = csv.writer(file)
             writer.writerows(data)
     
+
 def del_one_col(path, id = -1):
     """删除csv文件的某一列"""
     with open('day12/example.csv', 'r') as file:
@@ -48,6 +49,7 @@ def del_one_col(path, id = -1):
         writer.writerows(data)
         #print(data)
 
+
 def add_2_col(path):
     """随机挑两列相加，结果放到列数较小的那一列"""
     with open(path, 'r') as file:
@@ -56,15 +58,17 @@ def add_2_col(path):
 
     col_num = len(data[0])
     row_num = len(data)
-    if col_num < 2:
+    if col_num < 2: #判断下异常情况
         print('列数太少了')
         return None
+    
+    #挑出要相加的两列
     col_1 = random.randint(0, col_num - 1)
-
     col_2 = random.randint(0, col_num - 1)
     while (col_2 == col_1):
         col_2 = random.randint(0, col_num - 1)
     
+    #找出较小的列数
     if col_1 < col_2:
         min = col_1
         max = col_2
@@ -72,6 +76,7 @@ def add_2_col(path):
         min = col_2
         max = col_1
     
+    #相加
     for i in range(row_num):
         row = data[i]
         for j in range(col_num):
