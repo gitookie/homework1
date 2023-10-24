@@ -5,13 +5,16 @@ import pandas as pd
 import xml.etree.ElementTree as ET
 import functools
 import time
+import multiprocessing
 
 all_folder_name = ['aca', 'dem', 'fic', 'news']
 common_path = os.path.join(os.getcwd(), 'day14')
 """for name in all_folder_name:
     os.mkdir(os.path.join(common_path, name))"""
 
-all_result = {}
+manager = multiprocessing.Manager() #多进程要共享一个字典的话需要单独创建，否则普通的创建的话，每开一个新的进程都会重新生成一个
+#空的字典，然后各自统计各自的，无法汇总
+all_result = manager.dict()
 
 def timing_decorator(__main__):
     """装饰器，用来记录时间"""
@@ -83,7 +86,9 @@ def process_xml_file_in_one(xml_file):
         words = [elem.get("hw") for elem in root.findall(".//w[@hw]")]
         #result['filename'] = xml_file
         #result['word_count'] = len(words)
+        
         for word in words:
+            
             if not word in all_result:
                 all_result[word] = 1
             else:
@@ -104,7 +109,7 @@ def __main__():
     num_processes = 4  # 进程数
 
     """with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as process_executor:
-        process_executor.map(process_folder, sub_folder)"""
+        process_executor.map(process_in_one, sub_folder)"""
     """with concurrent.futures.ProcessPoolExecutor(max_workers=num_processes) as process_executor:
         process_executor.map(process_in_one, sub_sub)"""
     for i in range(4):
