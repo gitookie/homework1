@@ -52,6 +52,30 @@ def double_show(my_kernel, lib_kernel):
     
     plt.show()
     
+
+def double_show_in_3D(my_kernel, lib_kernel):
+    """成对可视化高斯核，但是以三维图形的形式"""
+
+    fig = plt.figure(figsize=(10, 5)) #生成一个figure对象，它表示整个图形窗口
+
+    ax1 = fig.add_subplot(121, projection='3d') #创建一个三维子图对象，它可以画各种三维图形
+    #121表示这是一乘二网格的子图里的第一个
+    delta = (my_kernel.shape[0] - 1) / 2
+    xx = np.arange(-delta, delta + 1)
+    yy = xx.copy()
+    xxx, yyy = np.meshgrid(xx, yy) #生成网格，其实就是把xx,yy的值拿来排列组合，所有的结果就是所有的点
+
+    surf1 = ax1.plot_surface(xxx, yyy, my_kernel, cmap = 'viridis')#创建一个三维表面图
+    #在xxx,yyy构成的平面上画图，第三维的数值就是my_kernel的数值
+    
+    ax2 = fig.add_subplot(122, projection='3d')
+    surf2 = ax2.plot_surface(xxx, yyy, lib_kernel, cmap = 'viridis')
+
+    cbar = fig.colorbar(surf2, ax=[ax1, ax2]) #重点在于第二个参数，它指定了这个颜色条会和两个子图关联，从而能同时显示
+    #两个颜色映射
+    
+    plt.show()
+
 if __name__ == '__main__':
     kernel_size = 3
     
@@ -61,8 +85,9 @@ if __name__ == '__main__':
         b = get_my_gaussian_kernel(i, size=kernel_size)
         print(b)
         print('\n\n')
-        double_show(a, b)
+        #double_show(a, b)
         kernel_size += 2
-
+        double_show_in_3D(a, b)
+    
     
 
